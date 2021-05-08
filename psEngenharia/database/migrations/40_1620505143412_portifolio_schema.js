@@ -6,8 +6,10 @@ const Schema = use('Schema')
 class PortifolioSchema extends Schema {
   up () {
     this.create('portifolios', (table) => {
-      table.increments()
-      table.timestamps()
+      table.increments();
+      table.string('nome', 45).notNullable();
+      table.integer('tipos_id').notNullable();
+      table.timestamps();
     })
   }
 

@@ -6,8 +6,9 @@ const Schema = use('Schema')
 class ServicoSchema extends Schema {
   up () {
     this.create('servicos', (table) => {
-      table.increments()
-      table.timestamps()
+      table.increments();
+      table.string('nome', 45).notNullable();
+      table.timestamps();
     })
   }
 

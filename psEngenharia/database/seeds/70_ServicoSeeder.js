@@ -13,6 +13,9 @@
 /** @type {import('@adonisjs/lucid/src/Factory')} */
 const Factory = use('Factory')
 
+const Servico = use('App/Models/Servico');
+
+
 class ServicoSeeder {
   async run () {
   }

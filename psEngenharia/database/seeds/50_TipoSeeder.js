@@ -13,6 +13,9 @@
 /** @type {import('@adonisjs/lucid/src/Factory')} */
 const Factory = use('Factory')
 
+const Tipo = use('App/Models/Tipo');
+
+
 class TipoSeeder {
   async run () {
   }

@@ -13,6 +13,9 @@
 /** @type {import('@adonisjs/lucid/src/Factory')} */
 const Factory = use('Factory')
 
+const Portifolio = use('App/Models/Portifolio');
+
+
 class PortifolioSeeder {
   async run () {
   }

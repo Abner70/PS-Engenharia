@@ -18,7 +18,9 @@ class EmpresaController {
    * @param {View} ctx.view
    */
   async index ({ request, response, view }) {
+    return ('hello world')
   }
+
 
   /**
    * Render a form to be used for creating a new empresa.

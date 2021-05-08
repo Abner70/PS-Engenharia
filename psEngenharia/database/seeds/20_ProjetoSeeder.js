@@ -13,6 +13,9 @@
 /** @type {import('@adonisjs/lucid/src/Factory')} */
 const Factory = use('Factory')
 
+const Projeto = use('App/Models/Projeto');
+
+
 class ProjetoSeeder {
   async run () {
   }

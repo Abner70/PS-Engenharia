@@ -19,3 +19,12 @@ const Route = use('Route')
 Route.get('/', () => {
   return { greeting: 'Hello world in JSON' }
 })
+
+Route.resource('/empresa', 'EmpresaController').apiOnly();
+Route.resource('/projeto', 'ProjetoController').apiOnly();
+Route.resource('/cliente', 'ClienteController').apiOnly();
+Route.resource('/portifolio', 'PortifolioController').apiOnly();
+Route.resource('/tipo', 'TipoController').apiOnly();
+Route.resource('/foto', 'FotoController').apiOnly();
+Route.resource('/servico', 'ServicoController').apiOnly();
+Route.resource('/servico-projeto', 'ServicoProjetoController').apiOnly();
