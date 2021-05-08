@@ -1,0 +1,19 @@
+'use strict'
+
+/** @type {import('@adonisjs/lucid/src/Schema')} */
+const Schema = use('Schema')
+
+class ServicoSchema extends Schema {
+  up () {
+    this.create('servicos', (table) => {
+      table.increments()
+      table.timestamps()
+    })
+  }
+
+  down () {
+    this.drop('servicos')
+  }
+}
+
+module.exports = ServicoSchema
