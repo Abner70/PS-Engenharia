@@ -18,6 +18,13 @@ const Foto = use('App/Models/Foto');
 
 class FotoSeeder {
   async run () {
+    await Foto.createMany([
+      {id : 1, url: 'url.foto.com.br', portifolio_id: 1},
+      {id : 2, url: 'url.foto.com.br', portifolio_id: 2},
+      {id : 3, url: 'url.foto.com.br', portifolio_id: 3},
+      {id : 4, url: 'url.foto.com.br', portifolio_id: 4},
+      {id : 5, url: 'url.foto.com.br', portifolio_id: 5}
+    ])
   }
 }
 

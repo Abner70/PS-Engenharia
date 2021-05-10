@@ -18,6 +18,11 @@ const Tipo = use('App/Models/Tipo');
 
 class TipoSeeder {
   async run () {
+    await Tipo.createMany([
+      {id: 1, nome: 'Residencial'},
+      {id: 2, nome: 'Predial'},
+      {id: 3, nome: 'Comercial'},
+    ])
   }
 }
 

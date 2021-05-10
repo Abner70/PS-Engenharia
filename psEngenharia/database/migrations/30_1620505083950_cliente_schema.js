@@ -9,9 +9,14 @@ class ClienteSchema extends Schema {
       table.increments();
       table.string('nome', 45).notNullable();
       table.integer('telefone').notNullable();
-      table.string('endereco', 100).notNullable();
       table.string('email', 60).notNullable();
       table.bigInteger('cpf').notNullable();
+      table.string('logradouro', 100).notNullable();
+      table.string('bairro', 45).notNullable();
+      table.integer('numero/lote').notNullable();
+      table.string('uf', 2).notNullable();
+      table.string('municipio', 45).notNullable();
+      table.integer('cep').notNullable();
       table.timestamps();
     })
   }
