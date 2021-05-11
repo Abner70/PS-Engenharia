@@ -9,15 +9,15 @@ class EmpresaSchema extends Schema {
       table.increments();
       table.string('nome', 45).notNullable();
       table.string('cnpj', 20).notNullable();
-      table.integer('telefone').notNullable();
+      table.string('telefone', 15).notNullable();
       table.string('email', 60).notNullable();
       table.string('instagram', 60).notNullable();
-      table.integer('whatsapp').notNullable();
+      table.string('whatsapp',16).notNullable();
       table.string('url_img_fundo', 150).notNullable();
       table.integer('cep').notNullable();
       table.string('logradouro', 45).notNullable();
       table.string('bairro', 45).notNullable();
-      table.integer('numero/lote').notNullable();
+      table.integer('numero_lote').notNullable();
       table.string('uf', 2).notNullable();
       table.string('municipio', 45).notNullable();
       table.timestamps();
