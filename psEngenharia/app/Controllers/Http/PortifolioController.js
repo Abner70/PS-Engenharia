@@ -4,6 +4,8 @@
 /** @typedef {import('@adonisjs/framework/src/Response')} Response */
 /** @typedef {import('@adonisjs/framework/src/View')} View */
 
+const Portifolio = use('App/Models/Portifolio');
+
 /**
  * Resourceful controller for interacting with portifolios
  */
@@ -18,6 +20,9 @@ class PortifolioController {
    * @param {View} ctx.view
    */
   async index ({ request, response, view }) {
+    let {page, perpage} = request.all()
+    return Portifolio.query().paginate(page, perpage);
+
   }
 
   /**
@@ -41,6 +46,9 @@ class PortifolioController {
    * @param {Response} ctx.response
    */
   async store ({ request, response }) {
+    const campos = Portifolio.getCamposCadastro();
+    const dados = request.only(campos);
+    return await Portifolio.create(dados);
   }
 
   /**
@@ -53,6 +61,10 @@ class PortifolioController {
    * @param {View} ctx.view
    */
   async show ({ params, request, response, view }) {
+    return await Portifolio.query()
+                        .where('id', params.id)
+                        //.with('projetos')
+                        .first();
   }
 
   /**
@@ -76,6 +88,16 @@ class PortifolioController {
    * @param {Response} ctx.response
    */
   async update ({ params, request, response }) {
+    const campos = await Portifolio.getCamposCadastro();
+    const dados = request.only(campos);
+    const portifolio = await Portifolio.findOrFail(params.id);
+    portifolio.merge(dados);
+    await portifolio.save();
+    return portifolio;
+    // const portifolio = await Portifolio.findOrFail(params.id);
+    // const dados = request.only(['nome', 'telefone','email','cep','municipio','uf','numero_lote','cpf','bairro','logradouro']);
+    // portifolio.merge(dados)
+    // return await portifolio.save();
   }
 
   /**
@@ -87,7 +109,11 @@ class PortifolioController {
    * @param {Response} ctx.response
    */
   async destroy ({ params, request, response }) {
+    const portifolio = await Portifolio.findOrFail(params.id);
+    return await portifolio.delete();
   }
 }
 
 module.exports = PortifolioController
+
+

@@ -4,6 +4,8 @@
 /** @typedef {import('@adonisjs/framework/src/Response')} Response */
 /** @typedef {import('@adonisjs/framework/src/View')} View */
 
+const ServicoProjeto = use('App/Models/Servicoprojeto');
+
 /**
  * Resourceful controller for interacting with servicoprojetos
  */
@@ -18,6 +20,9 @@ class ServicoProjetoController {
    * @param {View} ctx.view
    */
   async index ({ request, response, view }) {
+    let {page, perpage} = request.all()
+    return ServicoProjeto.query().paginate(page, perpage);
+
   }
 
   /**
@@ -41,6 +46,9 @@ class ServicoProjetoController {
    * @param {Response} ctx.response
    */
   async store ({ request, response }) {
+    const campos = ServicoProjeto.getCamposCadastro();
+    const dados = request.only(campos);
+    return await ServicoProjeto.create(dados);
   }
 
   /**
@@ -53,6 +61,10 @@ class ServicoProjetoController {
    * @param {View} ctx.view
    */
   async show ({ params, request, response, view }) {
+    return await ServicoProjeto.query()
+                        .where('id', params.id)
+                        //.with('projetos')
+                        .first();
   }
 
   /**
@@ -76,6 +88,16 @@ class ServicoProjetoController {
    * @param {Response} ctx.response
    */
   async update ({ params, request, response }) {
+    const campos = await ServicoProjeto.getCamposCadastro();
+    const dados = request.only(campos);
+    const servicoprojeto = await ServicoProjeto.findOrFail(params.id);
+    servicoprojeto.merge(dados);
+    await servicoprojeto.save();
+    return servicoprojeto;
+    // const servicoprojeto = await Servicoprojeto.findOrFail(params.id);
+    // const dados = request.only(['nome', 'telefone','email','cep','municipio','uf','numero_lote','cpf','bairro','logradouro']);
+    // servicoprojeto.merge(dados)
+    // return await servicoprojeto.save();
   }
 
   /**
@@ -87,7 +109,11 @@ class ServicoProjetoController {
    * @param {Response} ctx.response
    */
   async destroy ({ params, request, response }) {
+    const servicoprojeto = await ServicoProjeto.findOrFail(params.id);
+    return await servicoprojeto.delete();
   }
 }
 
 module.exports = ServicoProjetoController
+
+

@@ -4,6 +4,8 @@
 /** @typedef {import('@adonisjs/framework/src/Response')} Response */
 /** @typedef {import('@adonisjs/framework/src/View')} View */
 
+const Cliente = use('App/Models/Cliente');
+
 /**
  * Resourceful controller for interacting with clientes
  */
@@ -18,6 +20,9 @@ class ClienteController {
    * @param {View} ctx.view
    */
   async index ({ request, response, view }) {
+    let {page, perpage} = request.all()
+    return Cliente.query().paginate(page, perpage);
+
   }
 
   /**
@@ -41,6 +46,9 @@ class ClienteController {
    * @param {Response} ctx.response
    */
   async store ({ request, response }) {
+    const campos = Cliente.getCamposCadastro();
+    const dados = request.only(campos);
+    return await Cliente.create(dados);
   }
 
   /**
@@ -53,6 +61,10 @@ class ClienteController {
    * @param {View} ctx.view
    */
   async show ({ params, request, response, view }) {
+    return await Cliente.query()
+                        .where('id', params.id)
+                        //.with('projetos')
+                        .first();
   }
 
   /**
@@ -76,6 +88,16 @@ class ClienteController {
    * @param {Response} ctx.response
    */
   async update ({ params, request, response }) {
+    const campos = await Cliente.getCamposCadastro();
+    const dados = request.only(campos);
+    const cliente = await Cliente.findOrFail(params.id);
+    cliente.merge(dados);
+    await cliente.save();
+    return cliente;
+    // const cliente = await Cliente.findOrFail(params.id);
+    // const dados = request.only(['nome', 'telefone','email','cep','municipio','uf','numero_lote','cpf','bairro','logradouro']);
+    // cliente.merge(dados)
+    // return await cliente.save();
   }
 
   /**
@@ -87,7 +109,11 @@ class ClienteController {
    * @param {Response} ctx.response
    */
   async destroy ({ params, request, response }) {
+    const cliente = await Cliente.findOrFail(params.id);
+    return await cliente.delete();
   }
 }
 
 module.exports = ClienteController
+
+

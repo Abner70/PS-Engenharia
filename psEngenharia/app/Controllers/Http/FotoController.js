@@ -4,6 +4,8 @@
 /** @typedef {import('@adonisjs/framework/src/Response')} Response */
 /** @typedef {import('@adonisjs/framework/src/View')} View */
 
+const Foto = use('App/Models/Foto');
+
 /**
  * Resourceful controller for interacting with fotos
  */
@@ -18,6 +20,9 @@ class FotoController {
    * @param {View} ctx.view
    */
   async index ({ request, response, view }) {
+    let {page, perpage} = request.all()
+    return Foto.query().paginate(page, perpage);
+
   }
 
   /**
@@ -41,6 +46,9 @@ class FotoController {
    * @param {Response} ctx.response
    */
   async store ({ request, response }) {
+    const campos = Foto.getCamposCadastro();
+    const dados = request.only(campos);
+    return await Foto.create(dados);
   }
 
   /**
@@ -53,6 +61,10 @@ class FotoController {
    * @param {View} ctx.view
    */
   async show ({ params, request, response, view }) {
+    return await Foto.query()
+                        .where('id', params.id)
+                        //.with('projetos')
+                        .first();
   }
 
   /**
@@ -76,6 +88,16 @@ class FotoController {
    * @param {Response} ctx.response
    */
   async update ({ params, request, response }) {
+    const campos = await Foto.getCamposCadastro();
+    const dados = request.only(campos);
+    const foto = await Foto.findOrFail(params.id);
+    foto.merge(dados);
+    await foto.save();
+    return foto;
+    // const foto = await Foto.findOrFail(params.id);
+    // const dados = request.only(['nome', 'telefone','email','cep','municipio','uf','numero_lote','cpf','bairro','logradouro']);
+    // foto.merge(dados)
+    // return await foto.save();
   }
 
   /**
@@ -87,7 +109,11 @@ class FotoController {
    * @param {Response} ctx.response
    */
   async destroy ({ params, request, response }) {
+    const foto = await Foto.findOrFail(params.id);
+    return await foto.delete();
   }
 }
 
 module.exports = FotoController
+
+

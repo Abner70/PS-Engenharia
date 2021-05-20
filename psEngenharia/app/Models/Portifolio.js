@@ -4,6 +4,9 @@
 const Model = use('Model')
 
 class Portifolio extends Model {
+    static getCamposCadastro(){
+        return ['nome', 'tipos_id'];
+    }
 }
 
 module.exports = Portifolio

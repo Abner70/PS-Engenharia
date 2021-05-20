@@ -4,6 +4,8 @@
 /** @typedef {import('@adonisjs/framework/src/Response')} Response */
 /** @typedef {import('@adonisjs/framework/src/View')} View */
 
+const Empresa = use('App/Models/Empresa');
+
 /**
  * Resourceful controller for interacting with empresas
  */
@@ -18,9 +20,10 @@ class EmpresaController {
    * @param {View} ctx.view
    */
   async index ({ request, response, view }) {
-    return ('hello world')
-  }
+    let {page, perpage} = request.all()
+    return Empresa.query().paginate(page, perpage);
 
+  }
 
   /**
    * Render a form to be used for creating a new empresa.
@@ -43,6 +46,9 @@ class EmpresaController {
    * @param {Response} ctx.response
    */
   async store ({ request, response }) {
+    const campos = Empresa.getCamposCadastro();
+    const dados = request.only(campos);
+    return await Empresa.create(dados);
   }
 
   /**
@@ -55,6 +61,10 @@ class EmpresaController {
    * @param {View} ctx.view
    */
   async show ({ params, request, response, view }) {
+    return await Empresa.query()
+                        .where('id', params.id)
+                        //.with('projetos')
+                        .first();
   }
 
   /**
@@ -78,6 +88,16 @@ class EmpresaController {
    * @param {Response} ctx.response
    */
   async update ({ params, request, response }) {
+    const campos = await Empresa.getCamposCadastro();
+    const dados = request.only(campos);
+    const empresa = await Empresa.findOrFail(params.id);
+    empresa.merge(dados);
+    await empresa.save();
+    return empresa;
+    // const empresa = await Empresa.findOrFail(params.id);
+    // const dados = request.only(['nome', 'telefone','email','cep','municipio','uf','numero_lote','cpf','bairro','logradouro']);
+    // empresa.merge(dados)
+    // return await empresa.save();
   }
 
   /**
@@ -89,7 +109,11 @@ class EmpresaController {
    * @param {Response} ctx.response
    */
   async destroy ({ params, request, response }) {
+    const empresa = await Empresa.findOrFail(params.id);
+    return await empresa.delete();
   }
 }
 
 module.exports = EmpresaController
+
+

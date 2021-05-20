@@ -4,6 +4,8 @@
 /** @typedef {import('@adonisjs/framework/src/Response')} Response */
 /** @typedef {import('@adonisjs/framework/src/View')} View */
 
+const Projeto = use('App/Models/Projeto');
+
 /**
  * Resourceful controller for interacting with projetos
  */
@@ -18,6 +20,9 @@ class ProjetoController {
    * @param {View} ctx.view
    */
   async index ({ request, response, view }) {
+    let {page, perpage} = request.all()
+    return Projeto.query().paginate(page, perpage);
+
   }
 
   /**
@@ -41,6 +46,9 @@ class ProjetoController {
    * @param {Response} ctx.response
    */
   async store ({ request, response }) {
+    const campos = Projeto.getCamposCadastro();
+    const dados = request.only(campos);
+    return await Projeto.create(dados);
   }
 
   /**
@@ -53,6 +61,10 @@ class ProjetoController {
    * @param {View} ctx.view
    */
   async show ({ params, request, response, view }) {
+    return await Projeto.query()
+                        .where('id', params.id)
+                        //.with('projetos')
+                        .first();
   }
 
   /**
@@ -76,6 +88,16 @@ class ProjetoController {
    * @param {Response} ctx.response
    */
   async update ({ params, request, response }) {
+    const campos = await Projeto.getCamposCadastro();
+    const dados = request.only(campos);
+    const projeto = await Projeto.findOrFail(params.id);
+    projeto.merge(dados);
+    await projeto.save();
+    return projeto;
+    // const projeto = await Projeto.findOrFail(params.id);
+    // const dados = request.only(['nome', 'telefone','email','cep','municipio','uf','numero_lote','cpf','bairro','logradouro']);
+    // projeto.merge(dados)
+    // return await projeto.save();
   }
 
   /**
@@ -87,7 +109,11 @@ class ProjetoController {
    * @param {Response} ctx.response
    */
   async destroy ({ params, request, response }) {
+    const projeto = await Projeto.findOrFail(params.id);
+    return await projeto.delete();
   }
 }
 
 module.exports = ProjetoController
+
+

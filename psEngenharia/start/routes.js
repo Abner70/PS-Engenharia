@@ -20,11 +20,11 @@ Route.get('/', () => {
   return { greeting: 'Hello world in JSON' }
 })
 
-Route.resource('/empresa', 'EmpresaController').apiOnly();
-Route.resource('/projeto', 'ProjetoController').apiOnly();
-Route.resource('/cliente', 'ClienteController').apiOnly();
-Route.resource('/portifolio', 'PortifolioController').apiOnly();
-Route.resource('/tipo', 'TipoController').apiOnly();
-Route.resource('/foto', 'FotoController').apiOnly();
-Route.resource('/servico', 'ServicoController').apiOnly();
-Route.resource('/servico-projeto', 'ServicoProjetoController').apiOnly();
+Route.resource('/empresa', 'EmpresaController').apiOnly().validator(new Map([ [['store', 'update'], 'Empresa'],]));
+Route.resource('/projeto', 'ProjetoController').apiOnly().validator(new Map([ [['store', 'update'], 'Projeto'],]));
+Route.resource('/cliente', 'ClienteController').apiOnly().validator(new Map([ [['store', 'update'], 'Cliente'],]));
+Route.resource('/portifolio', 'PortifolioController').apiOnly().validator(new Map([ [['store', 'update'], 'Portifolio'],]));
+Route.resource('/tipo', 'TipoController').apiOnly().validator(new Map([ [['store', 'update'], 'Tipo'],]));
+Route.resource('/foto', 'FotoController').apiOnly().validator(new Map([ [['store', 'update'], 'Foto'],]));
+Route.resource('/servico', 'ServicoController').apiOnly().validator(new Map([ [['store', 'update'], 'Servico'],]));
+Route.resource('/servico-projeto', 'ServicoProjetoController').apiOnly().validator(new Map([ [['store', 'update'], 'ServicoProjeto'],]));

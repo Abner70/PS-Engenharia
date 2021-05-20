@@ -4,6 +4,9 @@
 const Model = use('Model')
 
 class Foto extends Model {
+    static getCamposCadastro(){
+        return ['url', 'portifolio_id'];
+    }
 }
 
 module.exports = Foto

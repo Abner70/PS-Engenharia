@@ -4,6 +4,10 @@
 const Model = use('Model')
 
 class Servico extends Model {
+    static getCamposCadastro(){
+        return ['nome'];
+    }
+
 }
 
 module.exports = Servico
