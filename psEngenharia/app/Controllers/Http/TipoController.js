@@ -63,7 +63,8 @@ class TipoController {
   async show ({ params, request, response, view }) {
     return await Tipo.query()
                         .where('id', params.id)
-                        //.with('projetos')
+                        .with('projetos')
+                        .with('portifolios')
                         .first();
   }
 

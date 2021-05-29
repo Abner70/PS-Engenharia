@@ -4,7 +4,7 @@
 /** @typedef {import('@adonisjs/framework/src/Response')} Response */
 /** @typedef {import('@adonisjs/framework/src/View')} View */
 
-const ServicoProjeto = use('App/Models/Servicoprojeto');
+const ServicoProjeto = use('App/Models/ServicoProjeto');
 
 /**
  * Resourceful controller for interacting with servicoprojetos

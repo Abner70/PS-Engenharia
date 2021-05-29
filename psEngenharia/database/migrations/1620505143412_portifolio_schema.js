@@ -8,7 +8,7 @@ class PortifolioSchema extends Schema {
     this.create('portifolios', (table) => {
       table.increments();
       table.string('nome', 45).notNullable();
-      table.integer('tipos_id').notNullable();
+      table.integer('tipo_id').references('id').inTable('tipos').unsigned().notNullable();
       table.timestamps();
     })
   }

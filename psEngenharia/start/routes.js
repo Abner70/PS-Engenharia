@@ -20,11 +20,19 @@ Route.get('/', () => {
   return { greeting: 'Hello world in JSON' }
 })
 
-Route.resource('/empresa', 'EmpresaController').apiOnly().validator(new Map([ [['store', 'update'], 'Empresa'],]));
-Route.resource('/projeto', 'ProjetoController').apiOnly().validator(new Map([ [['store', 'update'], 'Projeto'],]));
-Route.resource('/cliente', 'ClienteController').apiOnly().validator(new Map([ [['store', 'update'], 'Cliente'],]));
-Route.resource('/portifolio', 'PortifolioController').apiOnly().validator(new Map([ [['store', 'update'], 'Portifolio'],]));
-Route.resource('/tipo', 'TipoController').apiOnly().validator(new Map([ [['store', 'update'], 'Tipo'],]));
-Route.resource('/foto', 'FotoController').apiOnly().validator(new Map([ [['store', 'update'], 'Foto'],]));
-Route.resource('/servico', 'ServicoController').apiOnly().validator(new Map([ [['store', 'update'], 'Servico'],]));
-Route.resource('/servico-projeto', 'ServicoProjetoController').apiOnly().validator(new Map([ [['store', 'update'], 'ServicoProjeto'],]));
+Route.post('/token', 'UserController.token');
+Route.resource('/users', 'UserController').apiOnly().validator(new Map([ [['store', 'update'], 'User'],]));
+
+Route.group(()=>{
+}).middleware('auth')
+  Route.resource('/empresa', 'EmpresaController').apiOnly().validator(new Map([ [['store', 'update'], 'Empresa'],]));
+  Route.resource('/projeto', 'ProjetoController').apiOnly().validator(new Map([ [['store', 'update'], 'Projeto'],]));
+  Route.resource('/cliente', 'ClienteController').apiOnly().validator(new Map([ [['store', 'update'], 'Cliente'],]));
+  Route.resource('/portifolio', 'PortifolioController').apiOnly().validator(new Map([ [['store', 'update'], 'Portifolio'],]));
+  Route.resource('/tipo', 'TipoController').apiOnly().validator(new Map([ [['store', 'update'], 'Tipo'],]));
+  Route.resource('/foto', 'FotoController').apiOnly().validator(new Map([ [['store', 'update'], 'Foto'],]));
+  Route.resource('/servico', 'ServicoController').apiOnly().validator(new Map([ [['store', 'update'], 'Servico'],]));
+  Route.resource('/servico-projeto', 'ServicoProjetoController').apiOnly()//.validator(new Map([ [['store', 'update'], 'ServicoProjeto'],]))
+
+  
+  

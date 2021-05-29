@@ -7,7 +7,7 @@ class Portifolio extends ValidatorAbstract {
   get rules () {
     return {
       nome: 'required|min:2|max:45',
-      tipos_id: 'required|integer'
+      tipo_id: 'required|integer'
     }
   }
 }

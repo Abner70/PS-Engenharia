@@ -7,6 +7,9 @@ class Servico extends Model {
     static getCamposCadastro(){
         return ['nome'];
     }
+    projetos(){
+        return this.belongsToMany('App/Models/Projeto').pivotTable('servico_projetos');
+    }
 
 }
 

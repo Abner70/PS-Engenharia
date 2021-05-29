@@ -62,9 +62,9 @@ class FotoController {
    */
   async show ({ params, request, response, view }) {
     return await Foto.query()
-                        .where('id', params.id)
-                        //.with('projetos')
-                        .first();
+                     .with('portifolio')
+                     .where('id', params.id)
+                     .first();
   }
 
   /**

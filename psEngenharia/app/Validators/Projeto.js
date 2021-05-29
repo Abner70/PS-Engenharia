@@ -8,8 +8,8 @@ class Projeto extends ValidatorAbstract {
     return {
       nome: 'required|min:2|max:45',
       tipo_servico: 'required|min:3|max:70',
-      tipos_id: 'required|integer',
-      clientes_id: 'required|integer',
+      tipo_id: 'required|integer',
+      cliente_id: 'required|integer',
     }
   }
 }

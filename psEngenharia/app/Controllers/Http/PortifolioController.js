@@ -62,9 +62,10 @@ class PortifolioController {
    */
   async show ({ params, request, response, view }) {
     return await Portifolio.query()
-                        .where('id', params.id)
-                        //.with('projetos')
-                        .first();
+                           .with('fotos')
+                           .with('tipo')
+                           .where('id', params.id)
+                           .first();
   }
 
   /**

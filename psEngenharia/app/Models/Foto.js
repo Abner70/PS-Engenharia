@@ -7,6 +7,10 @@ class Foto extends Model {
     static getCamposCadastro(){
         return ['url', 'portifolio_id'];
     }
+    portifolio(){
+        return this.belongsTo('App/Models/Portifolio')
+    }
+    
 }
 
 module.exports = Foto

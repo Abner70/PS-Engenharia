@@ -12,12 +12,11 @@ class ValidatorAbstract{
             'min': "O campo '{{ field }}' não atingiu o valor mínimo",
             'integer': "O campo '{{ field }}' precisa ser numérico",
             'email': "O campo '{{ field }}' precisa ser um email válido",
-            
         }
     }
-
     async fails (errorMessages){ 
         return this.ctx.response.status(400).send(errorMessages);
         }
 }
 module.exports = ValidatorAbstract
+            

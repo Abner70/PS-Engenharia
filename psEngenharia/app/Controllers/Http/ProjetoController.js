@@ -62,8 +62,10 @@ class ProjetoController {
    */
   async show ({ params, request, response, view }) {
     return await Projeto.query()
+                        .with('cliente')
+                        .with('tipo')
+                        .with('servicos')
                         .where('id', params.id)
-                        //.with('projetos')
                         .first();
   }
 

@@ -8,6 +8,13 @@ class Tipo extends Model {
         return ['nome']; 
 
     }
+    portifolios(){
+        return this.hasMany('App/Models/Portifolio');
+    }
+    
+    projetos(){
+        return this.hasMany('App/Models/Projeto');
+    }
 }
 
 module.exports = Tipo

@@ -62,8 +62,8 @@ class ClienteController {
    */
   async show ({ params, request, response, view }) {
     return await Cliente.query()
+                        .with('projetos')
                         .where('id', params.id)
-                        //.with('projetos')
                         .first();
   }
 

@@ -62,8 +62,8 @@ class ServicoController {
    */
   async show ({ params, request, response, view }) {
     return await Servico.query()
+                        .with('projetos')
                         .where('id', params.id)
-                        //.with('projetos')
                         .first();
   }
 
